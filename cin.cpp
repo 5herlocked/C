@@ -34,4 +34,6 @@ int main ()
     cout << name2 << '\n';
     cout << "\t\t" << address2 << '\n';
     cout << "\t\t" << phoneNumber2 << '\n';
+
+    return 0;
 }
