@@ -6,10 +6,11 @@ using namespace std;
 class RPS 
 {
     private:
-        char board[ 9 ];
+        char board[3][3];
         bool move;
         string player1;
         string player2;
+        int numberOfMoves;
 
     public:
         RPS();
@@ -18,15 +19,21 @@ class RPS
         void createBoard();
         string getPlayer1();
         string getPlayer2();
+        char endCriteria();
 };
 
 RPS::RPS()
 {
     move  = false;
 
-    for (int i = 0; i < 9; i++)
+    int location = 0;
+
+    for (int r = 0; r < 3; ++r)
     {
-        board[i] = i + 1;
+        for (int c = 0; c < 3; ++c)
+        {
+            board[r][c] = ++location;
+        }
     }
 
     player1 = "John Doe";
@@ -42,9 +49,14 @@ RPS::RPS ( string player1, string player2 )
     RPS::player1 = player1;
     RPS::player2 = player2;
 
-    for (int i = 0; i < 9; i++)
+    int location = 0;
+
+    for (int r = 0; r < 3; ++r)
     {
-        board[i] = i + 1;
+        for (int c = 0; c < 3; ++c)
+        {
+            board[r][c] = ++location;
+        }
     }
 
     createBoard();
@@ -52,10 +64,9 @@ RPS::RPS ( string player1, string player2 )
 
 char RPS::nextMove( int location )
 {
-    board[ location - 1 ] = ( move ) ? 'X' : 'O';
+    board[ location/3 ][ location%3 ] = ( move ) ? 'X' : 'O';
 
     move = !move;
-
     createBoard();
 }
 
@@ -74,4 +85,14 @@ string RPS::getPlayer1 ()
 string RPS::getPlayer2 ()
 {
     return player2;
+}
+
+char RPS::endCriteria ()
+{
+    char returnVal;
+
+    if (numberOfMoves > 9)
+        return 't';
+
+    
 }

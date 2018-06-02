@@ -14,10 +14,10 @@ int main ()
     string player2;
     getline(cin, player2);
 
-    RPS game = RPS(player1 , player2);
     cout << "The board: \n";
+    RPS game = RPS(player1 , player2);
 
     
-    
+
     return 0;
 }
