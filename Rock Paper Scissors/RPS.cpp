@@ -20,11 +20,12 @@ class RPS
         string getPlayer1();
         string getPlayer2();
         char endCriteria();
+        bool getMove();
 };
 
 RPS::RPS()
 {
-    move  = false;
+    move  = true;
 
     int location = 0;
 
@@ -44,7 +45,7 @@ RPS::RPS()
 
 RPS::RPS ( string player1, string player2 )
 {
-    move = false;
+    move = true;
     
     RPS::player1 = player1;
     RPS::player2 = player2;
@@ -94,5 +95,17 @@ char RPS::endCriteria ()
     if (numberOfMoves > 9)
         return 't';
 
-    
+    if (board[0][0] == board[0][1] && board[0][1] == board[0][2] && (board[0][2] == 'X'|| board[0][2] == 'O'))
+        return board[0][0] == 'X' ? '1' : '2';
+
+    if (board[1][0] == board[1][1] && board[1][1] == board[1][2] && (board[1][2] == 'X' || board[1][2] == 'O'))
+        return board[1][0] == 'X' ? '1' : '2';
+
+    if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && (board[2][0] == 'X' || board[2][0] == 'O'))
+        return board[2][0] == 'X' ? '1' : '2';
+}
+
+bool RPS:: getMove ()
+{
+    return move;
 }
