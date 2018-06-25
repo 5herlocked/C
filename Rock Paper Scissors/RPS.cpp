@@ -6,7 +6,7 @@ using namespace std;
 class RPS 
 {
     private:
-        char board[3][3];
+        string board[3][3];
         bool move;
         string player1;
         string player2;
@@ -27,13 +27,13 @@ RPS::RPS()
 {
     move  = true;
 
-    int location = 0;
+    int location = 1;
 
-    for (int r = 0; r < 3; ++r)
+    for (auto &rows : board)
     {
-        for (int c = 0; c < 3; ++c)
+        for (auto &c : rows)
         {
-            board[r][c] = ++location;
+            c = location++;
         }
     }
 
@@ -50,15 +50,24 @@ RPS::RPS ( string player1, string player2 )
     RPS::player1 = player1;
     RPS::player2 = player2;
 
-    int location = 0;
+    int location = 1;
 
-    for (int r = 0; r < 3; ++r)
+    for (auto& rows : board)
     {
-        for (int c = 0; c < 3; ++c)
+        for (auto& c : rows)
         {
-            board[r][c] = ++location;
+            c = location++;
         }
     }
+
+    // for (int r = 0; r < 3; ++r)
+    // {
+    //     for (int c = 0; c < 3; ++c)
+    //     {
+    //         ++location;
+    //         board[r][c] = location;
+    //     }
+    // }
 
     createBoard();
 }
@@ -66,16 +75,18 @@ RPS::RPS ( string player1, string player2 )
 char RPS::nextMove( int location )
 {
     board[ location/3 ][ location%3 ] = ( move ) ? 'X' : 'O';
-
+    ++numberOfMoves;
     move = !move;
     createBoard();
 }
 
 void RPS::createBoard ()
 {
-    cout << board[0] << " | " << board[1] << " | " << board[2] << '\n' ;
-    cout << board[3] << " | " << board[4] << " | " << board[5] << '\n' ;
-    cout << board[6] << " | " << board[7] << " | " << board[8] << '\n' ;
+    cout << board[0][0] << " | " << board[0][1] << " | " << board[0][2] << '\n' ;
+    cout << "---------" << '\n';
+    cout << board[1][0] << " | " << board[1][1] << " | " << board[1][2] << '\n' ;
+    cout << "---------" << '\n';
+    cout << board[2][0] << " | " << board[2][1] << " | " << board[2][2] << '\n' ;
 }
 
 string RPS::getPlayer1 ()
@@ -90,8 +101,6 @@ string RPS::getPlayer2 ()
 
 char RPS::endCriteria ()
 {
-    char returnVal;
-
     if (numberOfMoves > 9)
         return 't';
 
@@ -103,6 +112,8 @@ char RPS::endCriteria ()
 
     if (board[2][0] == board[2][1] && board[2][1] == board[2][2] && (board[2][0] == 'X' || board[2][0] == 'O'))
         return board[2][0] == 'X' ? '1' : '2';
+
+    return 't';
 }
 
 bool RPS:: getMove ()
